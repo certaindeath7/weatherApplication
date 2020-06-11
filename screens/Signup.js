@@ -3,13 +3,13 @@ import { StyleSheet, Text, View, Alert } from 'react-native';
 import { TextInput, Button } from 'react-native-paper'
 import Header from './Header'
 
-const UserSignUp = ({navigation}) => {
+const UserSignUp = ({ navigation }) => {
 
     const [userName, setUserName] = useState("") //key value array
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
 
-  
+
 
     // save button clicked
     const saveBtnClicked = () => {
@@ -19,32 +19,32 @@ const UserSignUp = ({navigation}) => {
         createUsers();
     }
 
-    const createUsers = () =>{
+    const createUsers = () => {
         // local host: http://localhost:3000
         // if want to test on other device need to use ngrok to generate temporary uri
         fetch("http://localhost:3000/send", {
             method: "post",
-            headers:{
+            headers: {
                 'Content-Type': 'application/json'
             },
-            body:JSON.stringify({
+            body: JSON.stringify({
                 //pass an object
                 userName: userName,
                 password: password,
                 email: email
             })
         })
-        .then(res=>res.json())
-        .then(data=>{
-            Alert.alert(`updated successfuly`)
-        })
-        .catch(err=>{
-            Alert.alert("saved unsuccessfully")
-        })
+            .then(res => res.json())
+            .then(data => {
+                Alert.alert(`updated successfuly`)
+            })
+            .catch(err => {
+                Alert.alert("saved unsuccessfully")
+            })
     }
     return (
         <View style={StyleSheet.root}>
-            <Header name="Sign Up"/>
+            <Header name="Sign Up" />
             <TextInput
                 label="User Name"
                 value={userName}
