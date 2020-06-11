@@ -47,7 +47,7 @@ const WeatherScreen = (props) => {
                     icon: results.weather[0].icon,
                 })
             })
-            .catch(err=>{
+            .catch(err => {
                 alert(err.message);
             })
     }
