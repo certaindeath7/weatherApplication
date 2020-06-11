@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import { TextInput, Button, Card } from 'react-native-paper';
 import { View, Text, FlatList } from 'react-native';
+//want to save the search result in device storage
+import AsyncStorage from '@react-native-community/async-storage';
 import Header from './Header';
 
 //functional component
@@ -20,21 +22,25 @@ export default Search = ({navigation}) => { //extract the place and setPlace fro
   }
 
   // search button clicked
-  const searchBtnClicked = () =>
+  // async function helps to let the fetchPlaces run first to get the data faster
+  const searchBtnClicked = async () =>
   {
+      await AsyncStorage.setItem("newPlace", place)
       //pass the data once the button clicked. 
       navigation.navigate("Home", {place:place});
   }
 
   // an item of the list clicked
-  const itemClicked = (placeName)=>{
+  const itemClicked = async (placeName)=>{
+    await AsyncStorage.setItem("newPlace", placeName)
       setPlace(placeName);
       navigation.navigate("Home", {place:placeName});
   }
 
   return (
+    
     <View style={{ flex: 1 }}>
-      <Header name="Search Screen"/>
+      <Header name="Search"/>
       <TextInput
         label="place name"
         theme={{ colors: { primary: "#f99d12" } }}

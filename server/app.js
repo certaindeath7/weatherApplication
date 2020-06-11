@@ -19,18 +19,16 @@ mongoose.connect(mongoURL,{
 //create POST route
 app.post('/send', (req,res)=>{
     const customer = new Users({
-        name:req.body.name,
+        userName:req.body.userName,
         password:req.body.password,
         email:req.body.email
     })
     customer.save()
     .then(response=>{
         console.log(response)
-        res.send("successfully updated")
     }).catch(err=>{
         console.log(err)
     })
-    res.send("posted")
 })
 
 

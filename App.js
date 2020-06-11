@@ -21,6 +21,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 
 import Search from './screens/Search';
 import WeatherScreen from './screens/Home';
+import UserSignUp from './screens/Signup';
 
 const Tab = createBottomTabNavigator();
 
@@ -40,7 +41,8 @@ const App = () => {
                 iconName = 'cloud-search' // get the icon from https://oblador.github.io/react-native-vector-icons/
               } else if (route.name === "Home") {
                 iconName = 'city'
-              }
+              } 
+
               return <MaterialCommunityIcons name={iconName} size={25} color={color} />
             }
           })}
@@ -53,6 +55,7 @@ const App = () => {
           }}
 
         >
+          <Tab.Screen name="Signup" component={UserSignUp} />
           <Tab.Screen name="Search" component={Search} />
           <Tab.Screen name="Home" component={WeatherScreen}
             //the first city will pop up once the app loaded
