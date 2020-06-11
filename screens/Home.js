@@ -3,7 +3,7 @@ import { Appbar, Title, Card } from 'react-native-paper';
 import {View, Text, Image} from 'react-native';
 import Header from './Header'
 
-const WeatherScreen = () =>{
+const WeatherScreen = (props) =>{
     const [weather, setWeather] = useState({
         name: "loading",
         temp: "loading",
@@ -17,7 +17,13 @@ const WeatherScreen = () =>{
         fetchWeather();
     }, [])
     const fetchWeather = ()=>{
-        fetch("https://api.openweathermap.org/data/2.5/weather?q=London&appid=99e1bc7aaad40533208b6bcefa0926ce&units=metric")
+        let Destinations;
+        //get the place's name from search screen
+        const {place} = props.route.params;
+
+        //override the destionation with place's name from search screen
+        Destinations = place;
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${Destinations}&appid=99e1bc7aaad40533208b6bcefa0926ce&units=metric`)
         .then(res=>res.json())
         .then(results=>{
             setWeather({
@@ -28,6 +34,11 @@ const WeatherScreen = () =>{
                 icon: results.weather[0].icon,
             })
         })
+    }
+    //if the first place popped up is not melbourne, reload it
+    if(props.route.params.place != "Paris")
+    {
+        fetchWeather();
     }
 
     return(
